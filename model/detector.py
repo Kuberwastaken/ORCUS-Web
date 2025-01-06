@@ -151,26 +151,40 @@ def detect_extra_features(comment):
 def generate_confidence_score_sentence(ai_score):
     """Generate a confidence score sentence using GPT-2."""
     prompts = [
-
-     "This text shines with a precision that feels otherworldly.",
-     "Every word flows seamlessly, like it was crafted by a genius mind.",
-     "This message has a rhythm and clarity that feels almost futuristic.",
-     "The polish and creativity here are absolutely next-level.",
-     "These words carry a distinct brilliance, sharp and refined.",
-     "The elegance of this writing feels like it’s from a digital muse.",
-     "This comment dances with a precision that’s hard to match.",
-     "The seamless flow here is nothing short of mesmerizing.",
-     "The cleverness in these lines feels like a stroke of genius.",
-     "The sophistication in this message is hard to overlook.",
-     "This text glimmers with an unmatched sense of balance and flair.",
-     "The structure and style here are simply impeccable.",
-     "This writing is a masterpiece of coherence and ingenuity.",
-     "The level of finesse in this comment is truly remarkable.",
-     "This message stands out with its flawless execution and charm.",
-     "The clarity and creativity here feel absolutely top-tier.",
-     "The flow and elegance of this text are captivating.",
-     "The ingenuity behind this comment is undeniable.",
-     "This piece of writing feels crafted with an extraordinary touch."
+    
+     "This text appears to be AI generated with confidence",
+     "This message seems AI generated with confidence",
+     "This text has been detected as AI generated with confidence",
+     "This content appears to be AI generated with confidence",
+     "This statement screams AI generated with confidence",
+     "The digital essence of this message is AI generated with confidence",
+     "Your text radiates AI vibes and has been detected as AI generated with confidence",
+     "This message carries the unmistakable mark of AI generated with confidence",
+     "Something tells me this was AI generated with confidence",
+     "Looks like we've got an AI-crafted masterpiece here—AI generated with confidence",
+     "This text has been identified as AI generated with confidence",
+     "These words seem too perfect—AI generated with confidence",
+     "This text is looking a bit too smart—AI generated with confidence",
+     "This comment has AI fingerprints all over it—AI generated with confidence",
+     "The robotic artistry in this text is AI generated with confidence",
+     "Your clever text has been flagged as AI generated with confidence",
+     "This might be a case of overachieving AI—AI generated with confidence",
+     "Your words have been identified as AI generated with confidence",
+     "This gem of a comment is AI generated with confidence",
+     "This dazzling bit of text is AI generated with confidence",
+     "This suspiciously eloquent writing is AI generated with confidence",
+     "Your message has been detected as AI generated with confidence",
+     "This beautifully crafted comment is AI generated with confidence",
+     "These words shine with the glow of AI generated with confidence",
+     "Your linguistic genius might just be AI generated with confidence",
+     "This flawless prose is AI generated with confidence",
+     "Your comment is so sharp it’s AI generated with confidence",
+     "This impressive statement is AI generated with confidence",
+     "That’s some next-level AI finesse—AI generated with confidence",
+     "But my detector says AI generated with confidence",
+     "The machine behind this one was working hard—AI generated with confidence",
+     "These words are too perfect—AI generated with confidence",
+     "Did an AI pen this masterpiece?—AI generated with confidence"
 ]
 
     
@@ -196,7 +210,7 @@ def generate_confidence_score_sentence(ai_score):
     generated_text = generated_text.split("Generate a detection alert: ")[-1].strip()
     generated_text = generated_text.split("confidence")[0].strip()
     
-    return f"{generated_text} and has been flagged as 𝗔𝗜 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗘𝗗 with a confidence score of {ai_score:.2f}% 🤖"
+    return f"{generated_text} has been flagged as 𝗔𝗜 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗘𝗗 with a confidence score of {ai_score:.2f}% 🤖"
 
 def analyze_comment(comment):
     inputs = tokenizer(comment, return_tensors="pt", truncation=True, max_length=512)
@@ -231,7 +245,7 @@ def analyze_comment(comment):
     
     story += (
         f"𝗢𝗥𝗖𝗨𝗦 thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
-        "────────────────────────\n"
+        "---\n"
         "This is all meant as a lighthearted, funny little project.\n\n"
         "Check it out (and maybe star it?) on GitHub: https://github.com/kuberwastaken/ORCUS.\n"
         "Made with 💖 by @Kuber Mehta"
