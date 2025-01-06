@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORCUS - Observational Recognition of Content with Unnatural Speech</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ORCUS - Observational Recognition of Content with Unnatural Speech</h1>
+        <textarea id="comment" placeholder="Paste a LinkedIn comment here..."></textarea>
+        <button id="analyze">Analyze Comment</button>
+        <div id="result" style="white-space: pre-wrap;"></div>
+    </div>
+
+    <script>
+        document.getElementById('analyze').addEventListener('click', async () => {
+            const comment = document.getElementById('comment').value;
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comment })
+            });
+            const result = await response.json();
+            document.getElementById('result').innerHTML = `
+                <h2>Analysis Report</h2>
+                <p style="white-space: pre-wrap;">${result.funny_comment}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

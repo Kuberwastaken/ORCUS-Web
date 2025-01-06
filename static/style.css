@@ -1,0 +1,71 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #121212; /* Darker background for body */
+    color: #e0e0e0; /* Softer text color for better readability */
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #1e1e1e; /* Slightly darker container background */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Softer shadow for better contrast */
+    border-radius: 8px;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #555; /* Lighter border for better contrast */
+    border-radius: 4px;
+    background-color: #262626; /* Darker textarea background */
+    color: #e0e0e0; /* Softer text color */
+}
+
+textarea::placeholder {
+    color: #888; /* Subtle placeholder color */
+}
+
+/* Center the button and change its background to red */
+button {
+    display: block;
+    width: 200px; /* Set a fixed width for the button */
+    margin: 20px auto; /* Center the button horizontally */
+    background-color: #e53935; /* Red color for the button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d32f2f; /* Slightly darker red on hover */
+}
+
+#result {
+    margin-top: 20px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+mark {
+    background-color: #666633; /* Softer highlight color */
+    color: #fdfdfd;
+    font-weight: bold;
+}
