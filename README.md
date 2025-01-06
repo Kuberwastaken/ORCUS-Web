@@ -22,10 +22,13 @@ These automated responses often overshadow genuine human engagement, contributin
 ORCUS strives to foster a cultural shift. By encouraging digital literacy and active participation, the project aims to reshape online spaces, restore trust, and ensure that social media remains a platform for thoughtful, original interactions where human creativity and insight are celebrated over automated, generic outputs, without much thought to it.
 
 ## Features
-- **AI Detection Algorithms**: ORCUS uses the highly advanced and Open Soruce Roberta-Base-OpenAI-Detector Model from Hugging Face
+- **AI Detection Algorithms**: ORCUS uses the highly advanced and Open Source Roberta-Base-OpenAI-Detector Model from Hugging Face
 
 - **Interactive Interface**: A user-friendly interface allows users to input text and analyze its authenticity.
+
 - **Real-Time Feedback**: Provides almost immediate insights and suggestions for creating more authentic and engaging content.
+
+- **Custom GPT-2 Generated Messages**: ORCUS uses GPT-2 to dynamically generate engaging and creative AI detection messages with emojis, adding a unique flair to every alert and detection.
 
 - **Community-Driven**: Encourages a community of users committed to promoting originality and discouraging the overuse of AI for trivial purposes.
 
@@ -50,9 +53,9 @@ ORCUS strives to foster a cultural shift. By encouraging digital literacy and ac
 
     Enter your Hugging Face access token when prompted.
 
-2. **Download the Roberta-Base-Openai-Detector Model:**
+2. **Download the Roberta-Base-Openai-Detector and GPT-2 Models:**
 
-   The model will be downloaded automatically when running the script analysis for the first time, provided you have received access.
+   The models will be downloaded automatically when running the script analysis for the first time.
 
 ### Environment Setup
 To set up the development environment, you will need to create a virtual environment and install the necessary dependencies.
@@ -67,7 +70,7 @@ To set up the development environment, you will need to create a virtual environ
 
    ```bash
    source treat-env/bin/activate   # On Unix or MacOS
-   treat-env\Scripts\activate      # On Windows
+   treat-env\Scriptsctivate      # On Windows
    ```
 
 3. Install Dependencies:
