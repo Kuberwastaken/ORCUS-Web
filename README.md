@@ -6,7 +6,7 @@
 
 <p align="center">
 <img src="https://img.shields.io/static/v1?label=Kuberwastaken&message=ORCUS&color=e53935&logo=github" alt="Kuberwastaken - TREAT">
-<img src="https://img.shields.io/badge/version-Alpha-e53935" alt="Version 2.0">
+<img src="https://img.shields.io/badge/version-Beta-e53935" alt="Version 2.0">
 <img src="https://img.shields.io/badge/License-Apache_2.0-e53935" alt="License Apache 2.0">
 </p>
 
