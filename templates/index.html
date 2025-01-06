@@ -1,33 +1,32 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORCUS - Observational Recognition of Content with Unnatural Speech</title>
+    <title>ORCUS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>ORCUS - Observational Recognition of Content with Unnatural Speech</h1>
-        <textarea id="comment" placeholder="Paste a LinkedIn comment here..."></textarea>
+        <h1 style="font-size: 48px;">ORCUS</h1>
+        <p id="acronym" style="margin-top: 30px; font-size: 20px;">
+            <span class="acronym-letter" style="color: #e53935;">O</span>bservational
+            <span class="acronym-letter" style="color: #e53935;">R</span>ecognition of
+            <span class="acronym-letter" style="color: #e53935;">C</span>ontent
+            with <span class="acronym-letter" style="color: #e53935;">U</span>nnatural
+            <span class="acronym-letter" style="color: #e53935;">S</span>peech
+        </p>
+        <div class="textarea-container">
+            <textarea id="comment" placeholder="Paste a LinkedIn comment here..."></textarea>
+        </div>
         <button id="analyze">Analyze Comment</button>
-        <div id="result" style="white-space: pre-wrap;"></div>
+        <div id="loading-bar-container" style="display: none;">
+            <div id="loading-bar"></div>
+        </div>
+        <div id="result" style="white-space: pre-wrap; display: none;"></div>
     </div>
 
-    <script>
-        document.getElementById('analyze').addEventListener('click', async () => {
-            const comment = document.getElementById('comment').value;
-            const response = await fetch('/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ comment })
-            });
-            const result = await response.json();
-            document.getElementById('result').innerHTML = `
-                <h2>Analysis Report</h2>
-                <p style="white-space: pre-wrap;">${result.funny_comment}</p>
-            `;
-        });
-    </script>
+    <script src="/static/script.js"></script>
 </body>
 </html>
