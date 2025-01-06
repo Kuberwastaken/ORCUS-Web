@@ -181,9 +181,9 @@ def analyze_comment(comment):
     # Construct the output
     story = (
         f"{opening_line}\n\n"
-        f"────────────────────────\n\n"
         f"{confidence_sentence}\n\n"
         f"Here's a closer look at your comment with some AI-like parts highlighted:\n\n"
+        f"────────────────────────\n"
         f"\"{highlighted_comment[0]}\"\n\n"
     )
 
