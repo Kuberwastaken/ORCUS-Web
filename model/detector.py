@@ -37,17 +37,24 @@ def analyze_comment(comment):
     ai_score = probabilities[1] * 100
     highlighted_comment = highlight_most_ai_like_phrases(comment)
 
+    # Check for the use of "—"
+    dash_warning = ""
+    if "—" in comment:
+        dash_warning = "With an additional use of \"—\" which LLMs prefer over \"-\",\n\n"
+
     # Story-like analysis with emojis
     story = (
-        "🚨 **The LinkedIn AI Detection gods have chosen you!** 🚨\n\n"
+        "🚨 𝗧𝗵𝗲 𝗟𝗶𝗻𝗸𝗲𝗱𝗜𝗻 𝗔𝗜 𝗗𝗲𝘁𝗲𝗰𝘁𝗶𝗼𝗻 𝗴𝗼𝗱𝘀 𝗵𝗮𝘃𝗲 𝗰𝗵𝗼𝘀𝗲𝗻 𝘆𝗼𝘂!🚨\n\n"
         f"It's your lucky (or well, unlucky) day because your comment has been flagged as "
-        f"**AI GENERATED** with a confidence score of **{ai_score:.2f}%**. 🤖\n\n"
+        f"𝗔𝗜 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗘𝗗 with a confidence score of {ai_score:.2f}%. 🤖\n\n"
+        f"{dash_warning}"
         "Here's a closer look at your comment with some AI-like parts highlighted:\n\n"
         f"\"{highlighted_comment}\"\n\n"
-        "Our advanced detector model - ORCUS thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
+        "𝗢𝗥𝗖𝗨𝗦 thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
         "---\n"
-        "This is all meant as a funny little project. Check it out on [GitHub](https://github.com/kuberwastaken/ORCUS).\n"
-        "Made with <3 by [Kuber Mehta](https://www.linkedin.com/in/kubermehta/)."
+        "This is all meant as a lighthearted, funny little project. \n\n"
+        "Check it out on GitHub: https://github.com/kuberwastaken/ORCUS.\n"
+        "Made with 💖 by @Kuber Mehta"
     )
 
     analysis = {
