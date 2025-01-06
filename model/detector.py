@@ -2,6 +2,7 @@ from transformers import RobertaForSequenceClassification, RobertaTokenizer, GPT
 import torch
 import re
 import random
+import emoji
 
 # Load the models and tokenizers
 MODEL_NAME = "roberta-base-openai-detector"
@@ -106,6 +107,26 @@ def generate_dynamic_opening():
     
     return f"{start_emoji} {generated_text} {end_emoji}"
 
+def detect_extra_features(comment):
+    """Detect features like the use of '—', excessive emojis, and hashtags."""
+    additional_info = []
+
+    # Check for the use of '—'
+    if '—' in comment:
+        additional_info.append("ORCUS also detected use of '—' in favor of '-' which LLMs prefer to use.\n")
+
+    # Check for excessive emojis
+    emoji_list = [char for char in comment if char in emoji.EMOJI_DATA]  # Check for actual emojis
+    if len(emoji_list) >= 4:
+        additional_info.append("ORCUS also detected an excessive amount of emojis, further indicating a prompt specifying usage of emojis.\n")
+    
+    # Check for multiple hashtags
+    hashtag_count = len(re.findall(r'#\w+', comment))  # Find all hashtags
+    if hashtag_count >= 3:
+        additional_info.append("ORCUS also detected the use of multiple hashtags in the comment, which LLMs prefer to do to make generations more fit for social media.\n")
+
+    return additional_info
+
 def generate_confidence_score_sentence(ai_score):
     """Generate a confidence score sentence using GPT-2."""
     prompts = [
@@ -154,6 +175,9 @@ def analyze_comment(comment):
     opening_line = generate_dynamic_opening()
     confidence_sentence = generate_confidence_score_sentence(ai_score)
 
+    # Check for extra features like '—', excessive emojis, hashtags
+    extra_info = detect_extra_features(comment)  # Ensure this function is called to set 'extra_info'
+
     # Construct the output
     story = (
         f"{opening_line}\n\n"
@@ -161,6 +185,13 @@ def analyze_comment(comment):
         f"{confidence_sentence}\n\n"
         f"Here's a closer look at your comment with some AI-like parts highlighted:\n\n"
         f"\"{highlighted_comment[0]}\"\n\n"
+    )
+
+    # Add extra info (if any) before ORCUS's conclusion
+    if extra_info:
+        story += "\n".join(extra_info) + "\n"  # Append extra info here without extra blank lines
+    
+    story += (
         f"𝗢𝗥𝗖𝗨𝗦 thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
         "---\n"
         "This is all meant as a lighthearted, funny little project.\n\n"
