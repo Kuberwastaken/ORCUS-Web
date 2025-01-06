@@ -72,7 +72,7 @@ def generate_dynamic_opening():
     with torch.no_grad():
         outputs = gpt2_model.generate(
             inputs,
-            max_new_tokens=70,  # Set the number of new tokens to generate
+            max_new_tokens=75,  # Set the number of new tokens to generate
             num_return_sequences=1,
             temperature=0.85,  # Slightly higher for creativity, but not too much
             top_k=50,
@@ -164,7 +164,7 @@ def analyze_comment(comment):
         f"𝗢𝗥𝗖𝗨𝗦 thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
         "---\n"
         "This is all meant as a lighthearted, funny little project.\n\n"
-        "Check it out on GitHub: https://github.com/kuberwastaken/ORCUS.\n"
+        "Check it out (and maybe star it?) on GitHub: https://github.com/kuberwastaken/ORCUS.\n"
         "Made with 💖 by @Kuber Mehta"
     )
 
