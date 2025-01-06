@@ -30,32 +30,32 @@ def highlight_most_ai_like_phrases(comment, top_k=1):
     return [sentence for sentence, _ in scores]
 
 def generate_dynamic_opening():
-    """Generate a dynamic, creative opening line with emojis using GPT-2."""
+    """Generate a dynamic, catchy opening line with emojis using GPT-2."""
     example_templates = [
-        "Your text feels like it's from another dimension where AI rules supreme",
-        "These words seem to be crafted by an artificial mind in the digital realm",
-        "This message appears to have emerged from the depths of AI consciousness",
-        "Your writing resonates with the unmistakable signature of artificial intelligence",
-        "The digital fingerprints of AI are all over this text",
-        "Your words dance with the distinct rhythm of artificial intelligence",
-        "An AI seems to have channeled its creativity through these words",
-        "The algorithmic beauty of AI shines through your text",
-        "Your message carries the distinctive mark of AI craftsmanship",
-        "This text sparkles with artificial intelligence brilliance",
+        "Your text feels like it's from another dimension where AI rules supreme!",
+        "These words seem to be crafted by an artificial mind in the digital realm.",
+        "This message appears to have a vibe that’s both digital and human!",
+        "Your writing resonates with the unmistakable signature of artificial intelligence!",
+        "The digital fingerprints of AI are all over this text.",
+        "Your words dance with the distinct rhythm of artificial intelligence!",
+        "An AI seems to have channeled its creativity through these words.",
+        "The algorithmic beauty of AI shines through your text!",
+        "Your message carries the distinctive mark of AI craftsmanship.",
+        "This text sparkles with artificial intelligence brilliance but it’s definitely got personality!",
         "Your writing exhibits the telltale signs of AI artistry",
-        "The mathematical precision of AI echoes in your words"
+        "The mathematical precision of AI echoes in your words!"
     ]
     
     intros = [
-        "Wow!",
+        "Whoa!",
         "Alert!",
-        "Hold on!",
+        "Hold up!",
         "Attention!",
-        "Oh my!",
+        "Oh wow!",
         "Behold!",
         "Aha!",
         "Well well!",
-        "Look here!",
+        "Look at this!",
         "Fascinating!",
         "Incredible!",
         "Interesting!",
@@ -63,20 +63,20 @@ def generate_dynamic_opening():
     ]
     
     # Construct the prompt with multiple examples for better context
-    prompt = "Generate creative AI detection messages. Examples:\n"
+    prompt = "Generate fun, and catchy AI detection messages. Examples:\n"
     for _ in range(3):  # Add 3 random examples for context
         prompt += f"- {random.choice(intros)} {random.choice(example_templates)}\n"
-    prompt += "Generate new: "
+    prompt += "Generate a catchy, fun message with some AI flair that’s not too long: "
     
     inputs = gpt2_tokenizer.encode(prompt, return_tensors="pt")
     with torch.no_grad():
         outputs = gpt2_model.generate(
             inputs,
-            max_length=100,
+            max_new_tokens=70,  # Set the number of new tokens to generate
             num_return_sequences=1,
-            temperature=0.8,
+            temperature=0.85,  # Slightly higher for creativity, but not too much
             top_k=50,
-            top_p=0.92,
+            top_p=0.92,  # Keep diversity but limit to the best options
             no_repeat_ngram_size=2,
             pad_token_id=gpt2_tokenizer.eos_token_id
         )
@@ -84,11 +84,11 @@ def generate_dynamic_opening():
     generated_text = gpt2_tokenizer.decode(outputs[0], skip_special_tokens=True)
     
     # Clean up the generated text
-    generated_text = generated_text.split("Generate new:")[-1].strip()
+    generated_text = generated_text.split("Generate a catchy, fun message with some AI flair that’s not too long:")[-1].strip()
     generated_text = generated_text.split("\n")[0].strip()  # Take only the first line
     
     # If generation went off track, use template
-    if (len(generated_text.split()) > 25 or 
+    if (len(generated_text.split()) > 15 or 
         any(word in generated_text.lower() for word in ["news", "reuters", "reported", "according"]) or
         len(generated_text.split()) < 5):
         intro = random.choice(intros)
