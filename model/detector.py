@@ -30,194 +30,222 @@ def highlight_most_ai_like_phrases(comment, top_k=1):
     return [sentence for sentence, _ in scores]
 
 def generate_dynamic_opening():
-    """Generate a dynamic, catchy opening line with emojis using GPT-2."""
-    example_templates = [
-        "This text feels like it was brewed in the lab of a genius AI overlord!",
-        "These words seem like they were forged in the circuits of a brilliant machine.",
-        "Your comment is humming with the unmistakable melody of AI wizardry!",
-        "This message radiates the polished glow of artificial intelligence creativity!",
-        "The digital elegance of AI craftsmanship shines through these lines.",
-        "Your words flow with a precision only an algorithm could master!",
-        "An AI artist might just be the ghostwriter behind this masterpiece!",
-        "This comment gleams with the futuristic touch of a brilliant AI mind!",
-        "The seamless perfection in your text feels like AI's signature move!",
-        "These words sparkle like they’ve been handpicked by an AI curator!",
-        "The sharp wit in your writing feels like a dash of AI ingenuity!",
-        "This message has all the hallmarks of a high-tech AI creation!",
-        "Your text crackles with the energy of a silicon-powered muse!",
-        "The flawless symmetry in these words screams artificial brilliance!",
-        "An algorithmic symphony seems to have orchestrated this message!",
-        "Your words carry the digital charm of an AI at its creative peak!",
-        "The futuristic tone in your writing hints at an AI’s magical touch!",
-        "This text dances with the precision and flair of AI innovation!",
-        "The rhythm and flow here are unmistakably powered by artificial intelligence!",
-        "Your words sparkle with the unmistakable brilliance of a machine’s artistry!",
-        "This text feels like it was handcrafted by a robot poet with a flair for style!",
-        "Your writing pulses with the unmistakable creativity of AI genius!",
-        "These lines have the unmistakable precision of an algorithm in action!",
-        "Your comment is a testament to the artistry of modern AI tools!",
-        "Your words are so sharp, they must have been debugged by a genius AI!",
-        "This text is like a well-oiled machine—literally, an AI-powered one!",
-        "Your writing has the kind of logic only an algorithm could love!",
-        "Is this text running on JavaScript? Because it’s got all the right functions!",
-        "These lines are so smooth, I’m starting to think you’ve got a ‘byte’ of AI magic in there!",
-        "Your words have more precision than a robot with a GPS, and I’m here for it!",
-        "This comment’s got more algorithmic finesse than a robot with a PhD!",
-        "These lines were clearly written by an AI who knows its way around a pun!",
-        "Your text has more layers than an onion—and I’m not crying, I promise!",
-        "This message has more logic than a programming language… and I’m not even debugging!",
-        "Your words flow with more precision than my Wi-Fi connection!",
-        "This message is more calculated than my plans for world domination… which is none!",
-        "I bet your writing has been through more iterations than a well-trained neural network!",
-        "This text reads like an AI with a flair for comedy… or at least a great algorithm!",
-        "Your lines are so fine-tuned, I’m convinced they’ve been through a few rounds of deep learning!",
-        "This message must have passed a Turing test, because it’s definitely making me smile!",
-        "Your words are so perfect, I’m wondering if you’ve been feeding them to an AI on a strict diet of puns!",
-        "This text is smoother than a bot's pickup line!",
-        "I’m getting major ‘AI with a flair for comedy’ vibes from this message!",
-        "These words have been optimized for humor—algorithmically speaking, of course!",
-        "Your writing has more style than my coding errors ever will!",
-        "The smooth perfection of your text screams, ‘AI at work!’"
+    """Generate a highly varied, catchy opening line with emojis using GPT-2."""
+    # (Previous creative elements remain the same)
+    metaphors = [
+        "circuits", "algorithms", "neural networks", "binary", "pixels", "quantum", 
+        "cybernetic", "digital", "silicon", "matrix", "virtual", "synthetic",
+        "artificial", "automated", "programmed", "computerized", "robotic"
+    ]
+    
+    actions = [
+        "crafted", "engineered", "designed", "orchestrated", "composed", "calculated",
+        "processed", "optimized", "synthesized", "generated", "computed", "coded",
+        "programmed", "simulated", "modulated", "calibrated", "harmonized"
+    ]
+    
+    qualities = [
+        "precise", "elegant", "flawless", "seamless", "perfect", "polished",
+        "refined", "structured", "balanced", "harmonious", "systematic", "methodical",
+        "organized", "streamlined", "efficient", "optimized", "calculated"
     ]
 
-    intros = [
-        "Whoa!", "Alert!", "Hold up!", "Attention!", "Oh wow!", "Behold!", "Aha!", "Well well!",
-        "Look at this!", "Fascinating!", "Incredible!", "Interesting!", "Amazing!", "Fun Fact!", 
-        "LOL!", "Busted!", "Uh-oh...", "Eureka!", "BOOM!", "Ding ding ding!", "Look at that!"
+    prompt_templates = [
+        f"Generate a creative message about AI text that uses words like {', '.join(random.sample(metaphors, 3))}",
+        f"Create a witty observation about AI writing using concepts like {', '.join(random.sample(actions, 3))}",
+        f"Write a playful message about AI text that emphasizes qualities like {', '.join(random.sample(qualities, 3))}",
+        "Invent a clever metaphor comparing text to AI technology",
+        "Create a humorous observation about how AI writes compared to humans",
     ]
-
-    # Construct the prompt with multiple examples for better context
-    prompt = "Generate a fun, catchy AI detection message. Here are a few examples of how such messages might look:\n"
-    for _ in range(3):  # Add 3 random examples for context
-        intro = random.choice(intros)  # Select a random intro
-        template = random.choice(example_templates)  # Select a random message template
-        prompt += f"- {intro} {template}\n"
-
-    prompt += "Now, generate a similar message that follows this style and makes contextual sense: "
+    
+    prompt = random.choice(prompt_templates) + "\n\nExamples for inspiration:\n"
+    example_count = random.randint(2, 4)
+    
+    examples = []
+    for _ in range(example_count):
+        metaphor = random.choice(metaphors)
+        action = random.choice(actions)
+        quality = random.choice(qualities)
+        example = f"This text appears to have been {action} with {quality} {metaphor} precision!"
+        examples.append(example)
+    
+    prompt += "\n".join(f"{i+1}. {ex}" for i, ex in enumerate(examples))
+    prompt += "\n\nCreate a completely new, original message:"
 
     inputs = gpt2_tokenizer.encode(prompt, return_tensors="pt")
+    
+    # Modified generation parameters to use beam search
     with torch.no_grad():
         outputs = gpt2_model.generate(
             inputs,
-            max_new_tokens=9,  # Set the number of new tokens to generate
-            num_return_sequences=1,
-            temperature=0.85,  # Slightly higher for creativity, but not too much
-            top_k=50,
-            top_p=0.92,  # Keep diversity but limit to the best options
-            no_repeat_ngram_size=2,
+            max_new_tokens=40,
+            num_beams=5,  # Number of beams for beam search
+            num_return_sequences=5,  # Now supported with beam search
+            temperature=random.uniform(0.85, 0.95),
+            top_k=random.randint(45, 55),
+            top_p=random.uniform(0.92, 0.98),
+            repetition_penalty=random.uniform(1.1, 1.3),
+            no_repeat_ngram_size=3,
+            early_stopping=True,  # Stop when all beam hypotheses reach the EOS token
             pad_token_id=gpt2_tokenizer.eos_token_id
         )
 
-        generated_text = gpt2_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        generated_texts = [gpt2_tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
+        
+        # (Rest of the cleaning and selection process remains the same)
+        cleaned_texts = []
+        for text in generated_texts:
+            generated_part = text.split("Create a completely new, original message:")[-1].strip()
+            generated_part = generated_part.split('\n')[0].strip()
+            
+            if (len(generated_part.split()) >= 5 and 
+                len(generated_part.split()) <= 20 and 
+                not any(ex in generated_part for ex in examples) and
+                any(word in generated_part.lower() for word in metaphors + actions + qualities)):
+                cleaned_texts.append(generated_part)
 
-        # Clean up the generated text
-        generated_text = generated_text.split("Generate a catchy, fun message with some AI flair that’s not too long:")[-1].strip()
-        generated_text = generated_text.split("\n")[0].strip()  # Take only the first line
+        if cleaned_texts:
+            generated_text = random.choice(cleaned_texts)
+        else:
+            metaphor = random.choice(metaphors)
+            action = random.choice(actions)
+            quality = random.choice(qualities)
+            generated_text = f"This text appears to have been {action} with {quality} {metaphor} precision!"
 
-        # If generation went off track, use template
-        if (len(generated_text.split()) > 15 or 
-            any(word in generated_text.lower() for word in ["news", "reuters", "reported", "according"]) or
-            len(generated_text.split()) < 5):
-            intro = random.choice(intros)
-            template = random.choice(example_templates)
-            generated_text = f"{intro} {template}"
-
-        # Add emojis
-        emojis = ["⚡️", "🌌", "🔮", "🚀", "💫", "✨", "🤖", "🚨"]
-        start_emoji = random.choice(emojis)
-        end_emoji = start_emoji
-
-        # Ensure proper punctuation
+        emojis = ["⚡️", "🌌", "🔮", "🚀", "💫", "✨", "🤖", "🎯", "🎲", "🎮", "💻", "🔋", 
+                  "⚙️", "🧠", "💡", "🔬", "📡", "🎱", "🎨", "🎭", "🎪", "🎢", "🎠"]
+        emoji_count = random.randint(1, 3)
+        selected_emojis = random.sample(emojis, emoji_count)
+        
         if not generated_text.endswith(("!", ".", "...")):
-            generated_text += "!"
+            generated_text += random.choice(["!", "!!", "...!", "!?"])
 
-        return f"{start_emoji} {generated_text} {end_emoji}"
-
-def detect_extra_features(comment):
-    """Detect features like the use of '—', excessive hashtags."""
-    additional_info = []
-
-    # Check for the use of '—'
-    if '—' in comment:
-        additional_info.append("ORCUS also detected use of '—' in favor of '-' which LLMs prefer to use.\n")
-
-    # Check for multiple hashtags
-    hashtag_count = len(re.findall(r'#\w+', comment))  # Find all hashtags
-    if hashtag_count >= 3:
-        additional_info.append("ORCUS also detected the use of multiple hashtags in the comment, which LLMs prefer to do to make generations more fit for social media.\n")
-
-    return additional_info
+        return f"{' '.join(selected_emojis)} {generated_text} {' '.join(random.sample(emojis, random.randint(1, 2)))}"
 
 def generate_confidence_score_sentence(ai_score):
-    """Generate a confidence score sentence using GPT-2."""
-    prompts = [
-     "This text has a smoothness to it that feels like it was crafted by AI with a confidence",  
-     "The way every word fits so perfectly together suggests this was created by AI with a confidence",  
-     "This message is so clear and sharp, it seems to have been written by AI with a confidence",  
-     "There's a certain effortless elegance here that screams it was made by AI with a confidence",  
-     "The polished structure of this text shows it’s most likely crafted by AI with a confidence",  
-     "The flow of ideas is so perfect, it's as if this was generated through AI with a confidence",  
-     "This message has the kind of precision only AI could achieve with a confidence",  
-     "Everything about this text fits together just right, almost like it was written by AI with a confidence",  
-     "This smooth, easy-to-read style tells me it’s AI-generated with a confidence",  
-     "These words are so perfectly arranged, I can’t help but think they were made by AI with a confidence",  
-     "The cleverness in this writing shines through like it was created with AI with a confidence",  
-     "The smooth transitions between ideas here make it feel like it was crafted by AI with a confidence",  
-     "The polished precision of this text feels unmistakably like it was generated with a confidence",  
-     "The way this text reads so naturally suggests it was made with a confidence",  
-     "This flawless flow of thoughts could only have been created with a confidence",  
-     "Everything about this writing is so crisp and clear, it's definitely AI-generated with a confidence",  
-     "It’s almost like this message was designed to be perfect, AI perfect with a confidence",  
-     "This text has a smooth, controlled vibe that feels undeniably AI-generated with a confidence",  
-     "It’s hard to imagine this level of clarity and precision coming from anything but AI with a confidence",  
-     "The balance of wit and clarity in this message says it was created by AI with a confidence",  
-     "The way these ideas come together so seamlessly, I’m pretty sure it’s AI-generated with a confidence",  
-     "This message has such a perfect rhythm that it could only be written by AI with a confidence",  
-     "The neatness of this text makes it feel like it was created through AI with a confidence",  
-     "This writing feels so flawless, it must have been crafted by AI with a confidence",  
-     "The sharpness and clarity here leave no doubt that it was created by AI with a confidence",  
-     "The flow of this text is so natural, it seems to have been written by AI with a confidence",  
-     "It’s clear this message has been carefully crafted, likely AI-generated with a confidence",  
-     "The clever structure and smooth transitions in this text show it was AI generated with a confidence",  
-     "Everything about this message fits together perfectly, written by AI with a confidence",  
-     "The simplicity and clarity here suggest it was made by AI with a confidence",  
-     "This text has a perfect blend of creativity and logic, almost too good a blend, made with a confidence",  
-     "It’s almost like this message was designed to impress by AI with a confidence",  
-     "The ease with which this message reads suggests it was written by AI with a confidence",  
-     "The smooth rhythm and clever twists in this text feel like they were generated through AI with a confidence",  
-     "There’s a level of polish here that makes it seem like it was AI created with a confidence",  
-     "The seamless flow of thoughts in this message suggests it was written by an underpaid LLM with a confidence",  
-     "This text has a certain charm that makes me think it was created through AI with a confidence",  
-     "The precision in every word hints that this message was crafted by an LLM with a confidence",  
-     "The fluidity and sharpness of this text make it clear it was created by AI with a confidence",  
-     "This message has that perfect AI touch, made with a confidence"
+    """Generate a highly varied confidence score sentence using GPT-2."""
+    subjects = [
+        "text", "writing", "message", "composition", "prose", "words", "narrative",
+        "content", "passage", "expression", "communication", "discourse", "statement"
+    ]
+    
+    ai_qualities = [
+        "precision", "calculation", "optimization", "processing", "analysis",
+        "systematization", "computation", "algorithmic thinking", "digital crafting",
+        "machine learning", "artificial reasoning", "synthetic creativity"
+    ]
+    
+    patterns = [
+        f"The {random.choice(subjects)} exhibits clear signs of {random.choice(ai_qualities)}",
+        f"This {random.choice(subjects)} bears the hallmarks of {random.choice(ai_qualities)}",
+        f"The patterns in this {random.choice(subjects)} suggest advanced {random.choice(ai_qualities)}",
+        f"An unmistakable trace of {random.choice(ai_qualities)} runs through this {random.choice(subjects)}",
+        f"The {random.choice(ai_qualities)} in this {random.choice(subjects)} is remarkably evident"
     ]
 
+    prompt = (
+        "Generate an original analytical observation about AI-generated text. "
+        "Make it insightful and unique, avoiding common phrases.\n\n"
+        "Example patterns:\n" +
+        "\n".join(random.sample(patterns, 3)) +
+        "\n\nCreate a new, original observation:"
+    )
+
+    inputs = gpt2_tokenizer.encode(prompt, return_tensors="pt")
     
-    example_prompts = "\n".join(random.sample(prompts, 3))  # Take 3 random examples
-    input_text = f"Here are some AI detection messages:\n{example_prompts}\n\nGenerate a similar message, add NO other text in your output other than the detection message"
-    
-    inputs = gpt2_tokenizer.encode(input_text, return_tensors="pt")
+    # Modified generation parameters to use beam search
     with torch.no_grad():
         outputs = gpt2_model.generate(
             inputs,
-            max_new_tokens=50,  # Reduced since we want shorter outputs
-            num_return_sequences=1,
-            temperature=0.3,
-            top_k=50,
-            top_p=0.95,
-            no_repeat_ngram_size=2,
+            max_new_tokens=50,
+            num_beams=5,  # Number of beams for beam search
+            num_return_sequences=5,  # Now supported with beam search
+            temperature=random.uniform(0.8, 0.9),
+            top_k=random.randint(45, 55),
+            top_p=random.uniform(0.92, 0.98),
+            repetition_penalty=random.uniform(1.1, 1.3),
+            no_repeat_ngram_size=3,
+            early_stopping=True,
             pad_token_id=gpt2_tokenizer.eos_token_id
         )
+
+        generated_texts = [gpt2_tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
+        
+        cleaned_texts = []
+        for text in generated_texts:
+            generated_part = text.split("Create a new, original observation:")[-1].strip()
+            generated_part = generated_part.split('\n')[0].strip()
+            
+            if (len(generated_part.split()) >= 8 and 
+                len(generated_part.split()) <= 25 and 
+                any(word in generated_part.lower() for word in subjects + ai_qualities)):
+                cleaned_texts.append(generated_part)
+
+        if cleaned_texts:
+            generated_text = random.choice(cleaned_texts)
+        else:
+            pattern = random.choice(patterns)
+            generated_text = pattern
+
+        confidence_phrases = [
+            f"with a confidence score of {ai_score:.2f}%",
+            f"showing {ai_score:.2f}% confidence",
+            f"reaching {ai_score:.2f}% on our AI-detection scale",
+            f"scoring {ai_score:.2f}% on the AI-meter",
+            f"hitting {ai_score:.2f}% on our detection radar"
+        ]
+        
+        emojis = ["🤖", "📊", "📈", "🎯", "💯", "✨", "🔍", "⚡️", "🧠", "💫"]
+        emoji_count = random.randint(1, 2)
+        selected_emojis = " ".join(random.sample(emojis, emoji_count))
+
+        return f"{generated_text} {random.choice(confidence_phrases)} {selected_emojis}"
+
+def detect_extra_features(comment):
+    """
+    Detect additional features in the text that might indicate AI authorship.
     
-    generated_text = gpt2_tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
-    # Clean up the generated text
-    generated_text = generated_text.split("Here are some AI detection messages:")[-1].strip()
-    # Remove any existing confidence mentions since we'll add our own
-    generated_text = generated_text.split("with a confidence")[0].strip()
-    
-    return f"{generated_text} with a score of {ai_score:.2f}% 🤖"
+    Args:
+        comment (str): The text to analyze
+        
+    Returns:
+        list: List of strings describing detected features
+    """
+    additional_info = []
+
+    # Check for em dash (—) usage
+    if '—' in comment:
+        additional_info.append("ORCUS also detected use of '—' in favor of '-' which LLMs often prefer.\n")
+
+    # Check for multiple hashtags
+    hashtag_count = len(re.findall(r'#\w+', comment))
+    if hashtag_count >= 3:
+        additional_info.append("ORCUS also detected the use of multiple hashtags, which is common in AI-generated social media content.\n")
+
+    # Check for repeated punctuation patterns
+    if re.search(r'[!?]{3,}', comment):
+        additional_info.append("ORCUS noticed repeated punctuation patterns that are common in AI generations.\n")
+
+    # Check for perfectly balanced sentence structures
+    sentences = re.split(r'[.!?]+', comment)
+    sentence_lengths = [len(s.split()) for s in sentences if s.strip()]
+    if len(sentence_lengths) >= 3:
+        avg_length = sum(sentence_lengths) / len(sentence_lengths)
+        if all(abs(length - avg_length) <= 2 for length in sentence_lengths):
+            additional_info.append("ORCUS detected unusually consistent sentence lengths, which is common in AI writing.\n")
+
+    # Check for formal transition phrases
+    transition_phrases = ['moreover', 'furthermore', 'additionally', 'consequently', 'therefore']
+    found_transitions = [phrase for phrase in transition_phrases if phrase.lower() in comment.lower()]
+    if len(found_transitions) >= 2:
+        additional_info.append("ORCUS noticed multiple formal transition phrases, which LLMs often use.\n")
+
+    # Check for perfectly structured lists
+    list_patterns = re.findall(r'(?:^|\n)\d+\.\s.*(?:\n\d+\.\s.*)+', comment)
+    if list_patterns:
+        additional_info.append("ORCUS detected perfectly structured numbered lists, a common AI writing pattern.\n")
+
+    return additional_info
 
 def analyze_comment(comment):
     inputs = tokenizer(comment, return_tensors="pt", truncation=True, max_length=512)
