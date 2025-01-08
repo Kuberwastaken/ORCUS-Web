@@ -1,4 +1,4 @@
-![Orcus_Banner](static/images/readme-images/Orcus-Banner-Github.png)
+![Orcus_Banner](https://github.com/Kuberwastaken/ORCUS/blob/main/public/readme-images/Orcus-Banner-Github.png?raw=true)
 
 <h1 align="center">
   Observational Recognition of Content with Unnatural Speech
@@ -24,7 +24,7 @@ ORCUS strives to foster a cultural shift. By encouraging digital literacy and ac
 ## Features
 - **AI Detection Algorithms**: ORCUS uses the highly advanced and Open Source Roberta-Base-OpenAI-Detector Model from Hugging Face
 
-- **Interactive Interface**: A user-friendly interface allows users to input text and analyze its authenticity.
+- **Interactive Interface**: A user-friendly interface based on React allows users to input text and analyze its authenticity.
 
 - **Real-Time Feedback**: Provides almost immediate insights and suggestions for creating more authentic and engaging content.
 
@@ -70,7 +70,7 @@ To set up the development environment, you will need to create a virtual environ
 
    ```bash
    source treat-env/bin/activate   # On Unix or MacOS
-   treat-env\Scriptsctivate      # On Windows
+   treat-env\Scripts\activate      # On Windows
    ```
 
 3. Install Dependencies:
@@ -82,23 +82,19 @@ To set up the development environment, you will need to create a virtual environ
    ```
 
 ## Project Usage
-1. **Start the Flask Server:**
+1. **Start the interface and the model**
 
-   ```bash
-   python app.py
    ```
-
-2. **Open Your Browser:** 
-
-   Navigate to `http://127.0.0.1:5000` to access the ORCUS web interface.
+   npm start
+   ```
 
 3. **Analyze Scripts:**
 
-   You can manually enter a comment or text in the provided text area and click "Analyze Script."
+   You would be taken to a localhost website where you can manually enter a comment or text in the provided text area and click "Analyze Script."
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: React
 
 - **Backend**: Node.js
 

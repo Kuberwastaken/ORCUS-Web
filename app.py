@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from model.detector import analyze_comment
 
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+CORS(app)
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
