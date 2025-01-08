@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/static/v1?label=Kuberwastaken&message=ORCUS&color=e53935&logo=github" alt="Kuberwastaken - TREAT">
 <img src="https://img.shields.io/badge/version-Beta-e53935" alt="Version 2.0">
 <img src="https://img.shields.io/badge/License-Apache_2.0-e53935" alt="License Apache 2.0">
-</p>
+</p> 
 
 Named after the Roman god of the underworld and the punisher of broken oaths, ORCUS is dedicated to upholding integrity and authenticity in the digital realm by flagging AI generated content disguised as normal comments
 
