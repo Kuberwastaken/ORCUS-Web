@@ -282,7 +282,7 @@ def analyze_comment(comment):
         f"𝗢𝗥𝗖𝗨𝗦 thinks you're either channeling your inner AI or you have an EXTREMELY good vocabulary 🤖\n\n"
         "---\n"
         "This is all meant as a lighthearted, funny little project.\n\n"
-        "Check it out (and maybe star it?) on GitHub: https://github.com/kuberwastaken/ORCUS.\n"
+        "Check it out (and maybe star it?) on GitHub: https://github.com/kuberwastaken/ORCUS.\n\n"
         "Made with 💖 by @Kuber Mehta"
     )
 

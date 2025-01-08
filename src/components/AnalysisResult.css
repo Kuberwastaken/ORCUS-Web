@@ -1,25 +1,48 @@
 #result {
-    margin-top: 20px;
-    line-height: 1.8;
-    font-size: 16px;
-    color: #f5f5f5;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #262626;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    width: 90%;
-  }
-  
-  #result.show {
-    display: block;
-    opacity: 0;
-    animation: fadeIn 1.5s forwards;
-  }
-  
-  /* Keyframe Animations */
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
+  position: relative; /* Added to help position the button */
+  margin-top: 20px;
+  line-height: 1.8;
+  font-size: 16px;
+  color: #f5f5f5;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #262626;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 90%;
+}
+
+#result.show {
+  display: block;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+/* Button Styling */
+.copy-button {
+  position: absolute; /* Positioning the button */
+  top: 10px;
+  right: 10px;
+  width: 40px; /* Set a fixed width */
+  padding: 3px; /* Adjust padding to fit content */
+  background-color: #1e1e1e; /* New background color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 22px; /* Slightly smaller font */
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.copy-button:hover {
+  background-color: #333; /* Slightly darker on hover */
+  transform: scale(1.05);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
