@@ -12,7 +12,11 @@
 
 Named after the Roman god of the underworld and the punisher of broken oaths, ORCUS is dedicated to upholding integrity and authenticity in the digital realm by flagging AI generated content disguised as normal comments
 
-[Watch ORCUS in action on LinkedIn](https://www.linkedin.com/in/orcus-ai/)
+<p align="center">
+  <a href="https://www.linkedin.com/in/orcus-ai/">
+    <img src="https://raw.githubusercontent.com/Kuberwastaken/ORCUS/refs/heads/main/public/readme-images/orcusonlinkedin.png" alt="Watch ORCUS in action on LinkedIn" style="width:445px;height:61px;">
+  </a>
+</p>
 
 ## Mission
 ORCUS' mission is to address the growing issue of AI-generated content, particularly on platforms like LinkedIn, where AI generated comments fill up the discussion without adding significantly to the original post or conversation.
