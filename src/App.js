@@ -62,7 +62,8 @@ function App() {
       <h1>ORCUS</h1>
       <p id="acronym">
         <span className="acronym-letter">O</span>bservational&nbsp;&nbsp;
-        <span className="acronym-letter">R</span>ecognition&nbsp;&nbsp;of&nbsp;&nbsp;
+        <span className="acronym-letter">R</span>ecognition
+        <span className="line-break"></span>&nbsp;&nbsp;of&nbsp;&nbsp;
         <span className="acronym-letter">C</span>ontent&nbsp;with&nbsp;&nbsp;
         <span className="acronym-letter">U</span>nnatural&nbsp;&nbsp;
         <span className="acronym-letter">S</span>peech

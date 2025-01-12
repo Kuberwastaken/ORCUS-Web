@@ -53,3 +53,16 @@ h1 {
   color: #e53935; /* Red for Orcus’ fiery theme */
   margin: 0 0px; /* Added spacing between letters */
 }
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  #acronym {
+    font-size: 18px; /* Smaller font size for mobile */
+    line-height: 1.2; /* Adjust line height for better readability */
+  }
+
+  /* Break the text into two lines */
+  #acronym .line-break {
+    display: block;
+  }
+}
