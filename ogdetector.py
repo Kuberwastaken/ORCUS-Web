@@ -1,22 +1,20 @@
-import os
 import requests
 import re
 import random
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Hugging Face Inference API URLs
+# Huggingface Inference API endpoints
 ROBERTA_API_URL = "https://api-inference.huggingface.co/models/roberta-base-openai-detector"
 GPT2_API_URL = "https://api-inference.huggingface.co/models/openai-community/gpt2"
 
-# Your Hugging Face API token
-API_TOKEN = os.getenv("HUGGING_FACE_API_TOKEN")
+# Your Huggingface API token
+API_TOKEN = "your_huggingface_api_token"
 
-headers = {
-    "Authorization": f"Bearer {API_TOKEN}"
-}
+headers = {"Authorization": f"Bearer {API_TOKEN}"}
+
+def query_huggingface_api(url, payload):
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    return response.json()
 
 def highlight_most_ai_like_phrases(comment, top_k=1):
     """Highlight the most AI-like phrases."""
@@ -24,17 +22,10 @@ def highlight_most_ai_like_phrases(comment, top_k=1):
     scores = []
 
     for sentence in sentences:
-        response = requests.post(ROBERTA_API_URL, headers=headers, json={"inputs": sentence})
-        response.raise_for_status()
-        result = response.json()
-        print(f"Response for sentence '{sentence}': {result}")  # Debugging information
-        if isinstance(result, list) and len(result) > 0 and 'score' in result[0]:
-            ai_score = result[0]['score']
-            scores.append((sentence, ai_score))
-
-    # If no scores were calculated, return the original comment
-    if not scores:
-        return [comment]
+        payload = {"inputs": sentence}
+        result = query_huggingface_api(ROBERTA_API_URL, payload)
+        ai_score = result[0]['score']
+        scores.append((sentence, ai_score))
 
     scores = sorted(scores, key=lambda x: x[1], reverse=True)[:top_k]
     return [sentence for sentence, _ in scores]
@@ -81,13 +72,13 @@ def generate_dynamic_opening():
     prompt += "\n".join(f"{i+1}. {ex}" for i, ex in enumerate(examples))
     prompt += "\n\nCreate a completely new, original message:"
 
-    response = requests.post(GPT2_API_URL, headers=headers, json={"inputs": prompt, "parameters": {"max_new_tokens": 40, "num_return_sequences": 5}})
-    response.raise_for_status()
-    generated_texts = response.json()
+    payload = {"inputs": prompt, "parameters": {"max_new_tokens": 40, "num_beams": 5, "num_return_sequences": 5}}
+    result = query_huggingface_api(GPT2_API_URL, payload)
+    generated_texts = [output['generated_text'] for output in result]
 
     cleaned_texts = []
     for text in generated_texts:
-        generated_part = text['generated_text'].split("Create a completely new, original message:")[-1].strip()
+        generated_part = text.split("Create a completely new, original message:")[-1].strip()
         generated_part = generated_part.split('\n')[0].strip()
         
         if (len(generated_part.split()) >= 5 and 
@@ -143,13 +134,13 @@ def generate_confidence_score_sentence(ai_score):
         "\n\nCreate a new, original observation:"
     )
 
-    response = requests.post(GPT2_API_URL, headers=headers, json={"inputs": prompt, "parameters": {"max_new_tokens": 50, "num_return_sequences": 5}})
-    response.raise_for_status()
-    generated_texts = response.json()
+    payload = {"inputs": prompt, "parameters": {"max_new_tokens": 50, "num_beams": 5, "num_return_sequences": 5}}
+    result = query_huggingface_api(GPT2_API_URL, payload)
+    generated_texts = [output['generated_text'] for output in result]
 
     cleaned_texts = []
     for text in generated_texts:
-        generated_part = text['generated_text'].split("Create a new, original observation:")[-1].strip()
+        generated_part = text.split("Create a new, original observation:")[-1].strip()
         generated_part = generated_part.split('\n')[0].strip()
         
         if (len(generated_part.split()) >= 8 and 
@@ -224,22 +215,9 @@ def detect_extra_features(comment):
     return additional_info
 
 def analyze_comment(comment):
-    response = requests.post(ROBERTA_API_URL, headers=headers, json={"inputs": comment})
-    response.raise_for_status()
-    result = response.json()
-    print(f"Response for comment: {result}")  # Debugging information
-    
-    # Modified section to handle different response formats
-    if isinstance(result, list) and len(result) > 0:
-        if isinstance(result[0], dict):
-            if 'label' in result[0] and 'score' in result[0]:
-                probabilities = result[0]['score'] if result[0]['label'] == 'fake' else 1 - result[0]['score']
-            else:
-                probabilities = result[0].get('score', 0.5)
-        else:
-            probabilities = 0.5
-    else:
-        probabilities = 0.5
+    payload = {"inputs": comment}
+    result = query_huggingface_api(ROBERTA_API_URL, payload)
+    probabilities = result[0]['score']
 
     human_score = (1 - probabilities) * 100
     ai_score = probabilities * 100
