@@ -10,6 +10,8 @@
   background-color: #262626;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   width: 90%;
+  max-width: 600px; /* Ensure the result box doesn't exceed a certain width */
+  margin: 20px auto; /* Center the result box */
 }
 
 #result.show {
@@ -35,7 +37,6 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-
 .copy-button:hover {
   background-color: #333; /* Slightly darker on hover */
   transform: scale(1.05);
@@ -45,4 +46,20 @@
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  #result {
+    width: 95%; /* Full width result on mobile */
+    padding: 10px; /* Adjust padding for mobile */
+    font-size: 14px; /* Adjust font size for mobile */
+    margin: 10px auto; /* Center the result box */
+  }
+
+  .copy-button {
+    top: 5px; /* Adjust position for mobile */
+    right: 5px; /* Adjust position for mobile */
+    font-size: 18px; /* Adjust font size for mobile */
+  }
 }

@@ -2,11 +2,15 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 20px;
+  padding: 0;
   background-color: #0a0a0a; /* Darker underworld theme */
   color: #f5f5f5; /* Slightly softer white text */
   background: radial-gradient(circle, #0b0b0b, #141414); /* Subtle gradient background */
   overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure the body takes up the full height of the viewport */
 }
 
 /* Container Styling */
@@ -56,6 +60,16 @@ h1 {
 
 /* Media query for mobile screens */
 @media (max-width: 600px) {
+  .container {
+    padding: 20px;
+    width: 90vw; /* Ensure the container fits within the viewport width */
+  }
+
+  h1 {
+    font-size: 40px; /* Smaller font for ORCUS on mobile */
+    letter-spacing: 3px; /* Reduced spacing for letters */
+  }
+
   #acronym {
     font-size: 18px; /* Smaller font size for mobile */
     line-height: 1.2; /* Adjust line height for better readability */
@@ -64,5 +78,22 @@ h1 {
   /* Break the text into two lines */
   #acronym .line-break {
     display: block;
+  }
+
+  form {
+    width: 100%; /* Make the form take up 100% of the container width on mobile */
+  }
+
+  textarea {
+    height: 200px; /* Increase height for mobile */
+    font-size: 18px; /* Increase font size for mobile */
+  }
+
+  button {
+    width: 100%; /* Full width button on mobile */
+  }
+
+  #result {
+    width: 100%; /* Full width result on mobile */
   }
 }
