@@ -2,9 +2,12 @@
 
 <h1 align="center">
 ORCUS-WEB
+ORCUS-WEB
 </h1>
 
 <p align="center">
+<img src="https://img.shields.io/static/v1?label=Kuberwastaken&message=ORCUS-Web&color=e53935&logo=github" alt="Kuberwastaken - TREAT">
+<img src="https://img.shields.io/badge/version-1.0-e53935" alt="Version 1.0">
 <img src="https://img.shields.io/static/v1?label=Kuberwastaken&message=ORCUS-Web&color=e53935&logo=github" alt="Kuberwastaken - TREAT">
 <img src="https://img.shields.io/badge/version-1.0-e53935" alt="Version 1.0">
 </p>
@@ -12,6 +15,7 @@ ORCUS-WEB
 Named after the Roman god of the underworld and the punisher of broken oaths, ORCUS is dedicated to upholding integrity and authenticity in the digital realm by flagging AI generated content disguised as normal comments
 
 <p align="center">
+<a href="https://github.com/Kuberwastaken/ORCUS" target="kuberwastaken.github.io">Try ORCUS-Web</a>
 <a href="https://github.com/Kuberwastaken/ORCUS" target="kuberwastaken.github.io">Try ORCUS-Web</a>
 </p>
 
@@ -23,6 +27,8 @@ These automated responses often overshadow genuine human engagement, contributin
 ORCUS strives to foster a cultural shift. By encouraging digital literacy and active participation, the project aims to reshape online spaces, restore trust, and ensure that social media remains a platform for thoughtful, original interactions where human creativity and insight are celebrated over automated, generic outputs, without much thought to it.
 
 ## Features
+- **Cross Platform**: ORCUS Web can be run on any device as a website and even be downloaded as a Progressive Web App
+
 - **Cross Platform**: ORCUS Web can be run on any device as a website and even be downloaded as a Progressive Web App
 
 - **AI Detection Algorithms**: ORCUS uses the highly advanced and Open Source Roberta-Base-OpenAI-Detector Model from Hugging Face
