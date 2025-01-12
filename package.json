@@ -1,26 +1,20 @@
 {
-  "name": "orcus-react",
-  "version": "0.1.0",
+  "name": "ORCUS-Web",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.21.1",
-    "cra-template": "1.2.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1"
+    "concurrently": "^6.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "concurrently \"npm run start-react\" \"npm run start-flask\"",
-    "start-react": "react-scripts start",
-    "start-flask": "python app.py",
     "build": "npm run build-react && npm run build-flask",
     "build-react": "react-scripts build",
     "build-flask": "echo 'Flask backend is ready to serve the built React files'",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "concurrently": "^7.2.0"
+    "start": "concurrently \"npm run start-react\" \"npm run start-flask\"",
+    "start-react": "react-scripts start",
+    "start-flask": "python detector.py"
   },
   "eslintConfig": {
     "extends": [

@@ -4,3 +4,4 @@ flask-cors
 emoji
 requests
 python-dotenv
+concurrently
